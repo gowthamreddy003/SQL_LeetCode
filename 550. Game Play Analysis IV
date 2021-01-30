@@ -1,0 +1,5 @@
+select round(count(distinct a1.player_id)/ (select count(distinct player_id) from Activity), 2) as fraction
+from Activity as a1
+join (select player_id, min(event_date) as first_date
+from activity
+group by player_id) b on a1.player_id = b.player_id and a1.event_date -1 = b.first_date;
