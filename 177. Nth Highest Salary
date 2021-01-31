@@ -1,0 +1,8 @@
+CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
+BEGIN
+  RETURN (
+      SELECT IFNULL((SELECT DISTINCT Salary FROM (SELECT 
+                Salary, DENSE_RANK() OVER (ORDER BY Salary DESC) as my_rank
+            FROM Employee) as a
+        WHERE a.my_rank = N), NULL) AS SecondHighestSalary);
+END
