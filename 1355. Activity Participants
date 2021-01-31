@@ -1,0 +1,5 @@
+select activity
+from Friends
+group by activity
+having count(1) > (select count(1) from Friends group by activity order by count(1) limit 1)
+and count(1) < (select count(1) from Friends group by activity order by count(1) desc limit 1)
